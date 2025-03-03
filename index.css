@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Rubik", sans-serif;
+}
+
+:root {
+    --bg-color: #FEFAE8;
+    --nav-header-color: #CCDSAE;
+    --txt-color: #3B2F2F;
+    --btn-color: #D4A373;
+    --card-container-color: #E9EDC9;
+    --accent-color: #FAEDCD;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+main {
+    max-width: 1280px;
+}
+
+header {
+    max-width: 100%;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+header nav, .logo {
+    margin: 0 70px 0 70px;
+}
+
+.logo img {
+    width: 150px;
+    margin-right: auto;
+}
+
+
+header nav {
+    margin-left: auto;
+}
+
+header nav ul {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+header nav ul li {
+    padding: 10px;
+    font-weight: 600;
+}
+
+header nav a {
+    color: var(--txt-color);
+    transition: all 0.3s ease;
+}
+
+header nav a:hover {
+    color: var(--btn-color);
+    text-decoration: underline;
+}

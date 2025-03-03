@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+
+    font-family: "Rubik", sans-serif;
+}
+
+:root {
+    --bg-color: linear-gradient(135deg, #FAEDCD, #D4A373);
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --border-glass: rgba(255, 255, 255, 0.3);
+    --txt-color: #3B2F2F;
+    --btn-color: #D4A373;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--bg-color);
+    backdrop-filter: blur(6px);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 380px;
+    margin: 20% auto;
+    padding: 35px;
+    background: var(--glass-bg);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.back-btn a {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: var(--txt-color);
+    cursor: pointer;
+}
+
+.back-btn a:hover {
+    color: var(--btn-color);
+}
+
+.auth-form h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--txt-color);
+    margin: 10px 0 30px 0;
+}
+
+.input-group {
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 1);
+    color: var(--txt-color);
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.input-group input::placeholder {
+    color: #6e6e6e;
+}
+
+.input-group input:focus {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: var(--btn-color);
+}
+
+.redirect-login a {
+    color: var(--nav-header-color);
+    font-weight: bold;
+}
+
+.redirect-login a:hover {
+    color: var(--btn-color);
+    text-decoration: underline;
+}
+
+.btn {
+    width: 50%;
+    padding: 12px;
+    margin-top: 20px;
+    background: var(--btn-color);
+    color: white;
+    border: none;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background: #B7895C;
+}
+
+.alt-option {
+    margin-top: 15px;
+    font-size: 14px;
+    font-size: 14px;
+}
+
+.alt-option a {
+    color: var(--nav-header-color);
+    font-weight: bold;
+}
+
+.alt-option a:hover {
+    text-decoration: underline;
+}
