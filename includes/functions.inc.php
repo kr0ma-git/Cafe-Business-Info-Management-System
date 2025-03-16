@@ -25,7 +25,7 @@
         return $result;
     }
     function emailTaken($conn, $email) {
-        $sql = "SELECT ID, Email, Password, Role AS user_type FROM company WHERE email = ? UNION SELECT ID, Email, Password, 'customer' AS user_type FROM customers WHERE email = ?;";
+        $sql = "SELECT ID, FirstName AS Name, Email, Password, Role AS user_type, Status FROM company WHERE email = ? UNION SELECT ID, FirstName AS Name, Email, Password, 'customer' AS user_type, Status FROM customers WHERE email = ?;";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -76,6 +76,11 @@
             exit();
         }
 
+        // Check the status of the user.
+        if ($userData["Status"] == 'disabled') {
+            header("Location: ../login.php?error=accountDisabled");
+            exit();
+        }
 
         $pwdHashed = $userData["Password"];
         $checkPwd = password_verify($pwd, $pwdHashed);
@@ -89,7 +94,26 @@
         $_SESSION["userID"] = $userData["ID"];
         $_SESSION["userEmail"] = $userData["Email"];
         $_SESSION["userRole"] = $userData["user_type"];
+        $_SESSION["userName"] = $userData["Name"];
 
         header("Location: ../index.php");
         exit();
+    }
+    function getAllUsers($conn) { // Fetch users for status update/modification by admin.
+        $sql = "SELECT ID, CONCAT(FirstName,' ', LastName) AS Name, Email, 'customer' AS user_type, Status FROM customers 
+                UNION 
+                SELECT ID, CONCAT(FirstName,' ', LastName) AS Name, Email, Role AS user_type, Status FROM company";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: ../index.php"); // Needs to be updated (header).
+            exit();
+        }
+
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_stmt_close($stmt);
+
+        return $users;
     }

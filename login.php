@@ -33,6 +33,8 @@
                         echo "<p style='color: red;'>Fill in all fields!</p>";
                     } else if ($_GET["error"] == "wrongLogin") {
                         echo "<p style='color: red;'>Incorrect login credentials!</p>";
+                    } else if ($_GET["error"] == "accountDisabled") {
+                        echo "<p style='color: red;'>This account has been disabled! Please contact admin if this is a mistake.</p>";
                     }
                 }
             ?>
@@ -42,3 +44,5 @@
     </section>
 </body>
 </html>
+
+<!-- To add/insert an admin or employee into the database, the current method is to input all credentials into the MySQL database through CLI but encrypt password using bcrypt hasher (Unsecure, I know). -->

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The BeansTalk</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
     <header>
         <div class="logo">
             <a>
-                <img src="images/logo-logo (cropped).png" alt="The BeansTalk logo">
+                <img src="../images/logo-logo (cropped).png" alt="The BeansTalk logo">
             </a>
         </div>
         <nav>
@@ -40,7 +40,7 @@
                         } else {
                             echo "<li><a href='customer/profile.php'>Customer Dashboard</a></li>";
                         }
-                        echo "<li><a href='includes/logout.inc.php'>Log Out</a></li>";
+                        echo "<li><a href='../includes/logout.inc.php'>Log Out</a></li>";
                     } else {
                         echo "<li><a href='login.php'>Log In</a></li>";
                         echo "<li><a href='register.php'>Register</a></li>";
