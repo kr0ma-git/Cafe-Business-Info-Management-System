@@ -61,7 +61,3 @@
         </tbody>
     </table>
 </section>
-
-<?php
-    include '../footer.php';
-?>

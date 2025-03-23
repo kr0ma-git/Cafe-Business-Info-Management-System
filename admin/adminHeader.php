@@ -23,7 +23,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="../index.php">Home</a>
                 </li>
                 <li>
                     <a href="catalog.php">Catalog</a>
