@@ -1,8 +1,10 @@
 <?php
     $servername = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "thebeanstalkdb";
+    // $dbUsername = "root";
+    $dbUsername = "s22102758_thebeanstalkdb";
+    $dbPassword = "thebeanstalk";
+    $dbName = "s22102758_thebeanstalkdb";
+    // $dbName = "thebeanstalkdb";
 
     $conn = mysqli_connect($servername, $dbUsername, $dbPassword, $dbName);
 
