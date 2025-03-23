@@ -40,19 +40,19 @@
                     <td><?php echo $user['user_type']; ?></td>
                     <td><?php echo $user['Status']; ?></td>
                     <td>
-                        <?php if ($user['Status'] == 'active'): ?>
+                        <?php if ($user['Status'] == 'active' && $user['user_type'] == 'customer'): ?>
                             <form action="../includes/updateUserStatus.inc.php" method="post">
                                 <input type="hidden" name="userID" value="<?php echo $user['ID']; ?>">
                                 <input type="hidden" name="userType" value="<?php echo $user['user_type']; ?>">
-                                <input type="hidden" name="status" value="disabled">
-                                <button type="submit" name="updateStatus">Disable</button>
+                                <input type="hidden" name="status" value="disabled" id="status">
+                                <button type="submit" name="updateStatus" id="btn">Disable</button>
                             </form>
-                        <?php else: ?>
+                        <?php elseif ($user['Status'] == 'disabled' && $user['user_type'] == 'customer'): ?>
                             <form action="../includes/updateUserStatus.inc.php" method="post">
                                 <input type="hidden" name="userID" value="<?php echo $user['ID']; ?>">
                                 <input type="hidden" name="userType" value="<?php echo $user['user_type']; ?>">
-                                <input type="hidden" name="status" value="active">
-                                <button type="submit" name="updateStatus">Enable</button>
+                                <input type="hidden" name="status" value="active" id="status">
+                                <button type="submit" name="updateStatus" id="btn">Enable</button>
                             </form>
                         <?php endif; ?>
                     </td>
