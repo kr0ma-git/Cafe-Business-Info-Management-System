@@ -28,7 +28,7 @@
                     <a href="../index.php">Home</a>
                 </li>
                 <li>
-                    <a href="catalog.php">Catalog</a>
+                    <a href="../catalog/catalog.php">Catalog</a>
                 </li>
                 <li>
                     <a href="cart.php">Cart</a>
@@ -36,21 +36,21 @@
                 <?php
                     if (isset($_SESSION["userRole"])) {
                         if ($_SESSION["userRole"] == "admin") {
-                            echo "<li><a href='admin/admin.php'>Admin Dashboard</a></li>";
+                            echo "<li><a href='../admin/admin.php'>Admin Dashboard</a></li>";
                         } else if ($_SESSION["userRole"] == "employee") {
-                            echo "<li><a href='employee/employee.php'>Employee Dashboard</a></li>";
+                            echo "<li><a href='../employee/employee.php'>Employee Dashboard</a></li>";
                         } else {
-                            echo "<li><a href='customer/profile.php'>Customer Dashboard</a></li>";
+                            echo "<li><a href='../customer/profile.php'>Customer Dashboard</a></li>";
                         }
                         echo "<li><a href='../includes/logout.inc.php'>Log Out</a></li>";
                     } else {
-                        echo "<li><a href='login.php'>Log In</a></li>";
-                        echo "<li><a href='register.php'>Register</a></li>";
+                        echo "<li><a href='../login.php'>Log In</a></li>";
+                        echo "<li><a href='../register.php'>Register</a></li>";
                     }
                 ?>
                 </li>
                 <li>
-                    <a href="about.php">About Us</a>
+                    <a href="../about/about.php">About Us</a>
                 </li>
             </ul>
         </nav>

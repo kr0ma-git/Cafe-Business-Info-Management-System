@@ -16,7 +16,7 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: #fff;
 }
 
 main {
@@ -30,6 +30,7 @@ header {
     align-items: center;
     justify-content: space-evenly;
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 253, 242);
 }
 
 header nav, .logo {

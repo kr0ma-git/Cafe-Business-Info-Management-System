@@ -1,5 +1,4 @@
 <?php
-    // Functions used register.php.
     function emptyInputSignup($fName, $lName, $contactNumber, $email, $pwd, $pwdRepeat) {
         if (empty($fName) || empty($lName) || empty($contactNumber) || empty($email) || empty($pwd) || empty($pwdRepeat)) {
             $result = true;
@@ -116,4 +115,28 @@
         mysqli_stmt_close($stmt);
 
         return $users;
+    }
+    function fetchMenuItems($conn) {
+        $sql = "SELECT * FROM menu_items WHERE stock > 0";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        return $result;
+    }
+    function fetchOutOfStockItems($conn) {
+        $sql = "SELECT * FROM menu_items WHERE stock <= 0";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        return $result;
     }
