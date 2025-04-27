@@ -126,6 +126,8 @@
 
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+
         return $result;
     }
     function fetchOutOfStockItems($conn) {
@@ -138,5 +140,119 @@
 
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+
         return $result;
+    }
+    function getCartItems($conn, $customerID) {
+        $sql = "SELECT cart.cartID, cart.itemID, cart.quantity, menu_items.name, menu_items.price FROM cart JOIN menu_items ON cart.itemID = menu_items.itemID WHERE cart.customerID = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ('SQL error: ' . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $customerID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        $cartItems = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $cartItems[$row["cartID"]] = $row;
+        }
+        mysqli_stmt_close($stmt);
+
+        return $cartItems;
+    }
+    function cartItemExists($conn, $customerID, $itemID) {
+        $sql = "SELECT * FROM cart WHERE customerID = ? AND itemID = ?";
+        $stmt = mysqli_stmt_init($conn);
+        
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ('SQL error: ' . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "ii", $customerID, $itemID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        mysqli_stmt_close($stmt);
+
+        return mysqli_num_rows($result) > 0;
+    }
+    function addOrUpdateCartItem($conn, $customerID, $itemID, $itemQty) {
+        if (cartItemExists($conn, $customerID, $itemID)) {
+            $sql = "UPDATE cart SET quantity = quantity + ? WHERE customerID = ? AND itemID = ?";
+            $stmt = mysqli_stmt_init($conn);
+
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                die ('SQL error: ' . mysqli_error($conn));
+            }
+            
+            mysqli_stmt_bind_param($stmt, "iii", $itemQty, $customerID, $itemID);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        } else {
+            $sql = "INSERT INTO cart(customerID, itemID, quantity) VALUES(?, ?, ?)";
+            $stmt = mysqli_stmt_init($conn);
+
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                die ('SQL error: ' . mysqli_error($conn));
+            }
+
+            mysqli_stmt_bind_param($stmt, "iii", $customerID, $itemID, $itemQty);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+        }
+    }
+    function removeCartItem($conn, $customerID, $itemID) {
+        $sql = "DELETE FROM cart WHERE customerID = ? AND itemID = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ('SQL error: ' . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "ii", $customerID, $itemID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    function createOrder($conn, $customerID, $totalAmount, $paymentMethod, $contactNumber) {
+        $sql = "INSERT INTO customer_orders(customerID, totalAmount, paymentMethod, contactNumber) VALUES(?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "idss", $customerID, $totalAmount, $paymentMethod, $contactNumber);
+        mysqli_stmt_execute($stmt);
+
+        return mysqli_insert_id($conn);
+    }
+    function addOrderItem($conn, $orderID, $itemID, $quantity, $priceAtPurchase) {
+        $sql = "INSERT INTO order_items(orderID, itemID, quantity, priceAtPurchase) VALUES(?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ('SQL error: ' . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "iiid", $orderID, $itemID, $quantity, $priceAtPurchase);
+        mysqli_stmt_execute($stmt);
+
+        return true;
+    }
+    function clearCart($conn, $customerID) {
+        $sql = "DELETE FROM cart WHERE customerID = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $customerID);
+        mysqli_stmt_execute($stmt);
+
+        return true;
     }

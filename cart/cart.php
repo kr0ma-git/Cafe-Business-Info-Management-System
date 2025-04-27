@@ -1,9 +1,16 @@
 <?php
+    include "cartHeader.php";
+    if (!isset($_SESSION["userID"])) {
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $customerID = $_SESSION["userID"];
+ 
     include "../includes/dbh.inc.php";
     include "../includes/functions.inc.php";
-    include "cartHeader.php";
 
-    $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+    $cartItems = getCartItems($conn, $customerID);
 ?>
 
     <?php if (isset($_SESSION["userRole"]) && $_SESSION["userRole"] == "admin"): ?>
@@ -23,12 +30,12 @@
     <main class="cart-page">
         <h1>Your Cart</h1>
 
-        <?php if (!empty($cart)): ?>
-            <form action="updateCart.php" method="POST" class="cart-form">
+        <?php if (!empty($cartItems)): ?>
+            <form action="../includes/updateCart.inc.php" method="POST" class="cart-form">
                 <div class="cart-table">
                     <?php 
                         $total = 0;
-                        foreach ($cart as $itemID => $item):
+                        foreach ($cartItems as $cartID => $item):
                             $subtotal = $item['price'] * $item['quantity'];
                             $total += $subtotal;
                     ?>
@@ -36,11 +43,11 @@
                         <div class="cart-item-name"><?php echo htmlspecialchars($item['name']); ?></div>
                         <div class="cart-item-price">₱<?php echo number_format($item['price'], 2); ?></div>
                         <div class="cart-item-quantity">
-                            <input type="number" name="quantities[<?php echo $itemID; ?>]" min="1" value="<?php echo $item['quantity']; ?>">
+                            <?php echo "x" . htmlspecialchars($item['quantity']); ?>
                         </div>
                         <div class="cart-item-subtotal">₱<?php echo number_format($subtotal, 2); ?></div>
                         <div class="cart-item-remove">
-                            <button type="submit" name="remove" value="<?php echo $itemID; ?>" class="remove-btn">✕</button>
+                            <button type="submit" name="remove" value="<?php echo $item["itemID"]; ?>" class="remove-btn">✕</button>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -51,8 +58,7 @@
                         <strong>Total:</strong> ₱<?php echo number_format($total, 2); ?>
                     </div>
                     <div class="cart-buttons">
-                        <button type="submit" name="updateCart" class="btn update-btn">Update</button>
-                        <a href="checkout.php" class="btn checkout-btn">Checkout</a>
+                        <a href="../checkout/checkout.php" class="btn checkout-btn">Checkout</a>
                     </div>
                 </div>
             </form>

@@ -31,7 +31,6 @@
                         <h3 class="item-title"><?php echo $row['name']; ?></h3>
                         <p class="item-description"><?php echo $row['description']; ?></p>
                         <p class="item-price"><?php echo $row['price']; ?></p>
-                        <p class="item-stock in-stock">In stock: <?php echo $row['stock']; ?></p>
                         <form class="item-form" method="POST" action="../includes/addToCart.inc.php">
                             <input type="hidden" name="itemID" value="<?php echo $row['itemID']; ?>">
                             <input type="hidden" name="itemName" value="<?php echo $row['name']; ?>">
@@ -39,11 +38,6 @@
                             <input type="number" min="1" value="1" name="itemQuantity" class="item-quantity">
                             <button type="submit" class="add-to-cart" name="addToCart">Add to Cart</button>
                         </form>
-                        <?php if (isset($_SESSION['cart'][$row['itemID']])): ?>
-                            <span class="in-cart-message">
-                                <?php echo $_SESSION['cart'][$row['itemID']]['quantity']; ?> in cart
-                            </span>
-                        <?php endif; ?>
                     </div>
                 </article>
                 <?php } ?>
