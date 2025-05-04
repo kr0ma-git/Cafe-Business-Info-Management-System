@@ -42,7 +42,7 @@
             <a href="../catalog/catalog.php" class="btn">
                 <i class="fa-solid fa-arrow-left"></i> Continue Shopping
             </a>
-            <a href="../customer/customerDashboard.php" class="btn">
+            <a href="../customer/customer.php" class="btn">
                 <i class="fa-solid fa-clipboard-list"></i> View Order Status
             </a>
         </div>

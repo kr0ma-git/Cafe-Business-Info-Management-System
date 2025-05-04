@@ -1,10 +1,16 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['userRole'])) {
+    if (!isset($_SESSION["userRole"]) && $_SESSION["userRole"] != "customer" && $_SESSION["userRole"] != "admin") {
         header("Location: ../login.php");
         exit();
     }
+
+    require_once '../includes/dbh.inc.php';
+    require_once '../includes/functions.inc.php';
+
+    $userID = $_SESSION["userID"];
+    $orders = getCustomerOrders($conn, $userID);
 ?>
 
 <!doctype html>
@@ -13,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The BeansTalk</title>
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="customer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -36,7 +42,7 @@
                     <a href="../catalog/catalog.php">Catalog</a>
                 </li>
                 <li>
-                    <a href="cart.php">Cart</a>
+                    <a href="../cart/cart.php">Cart</a>
                 </li>
                 <?php
                     if (isset($_SESSION["userRole"])) {

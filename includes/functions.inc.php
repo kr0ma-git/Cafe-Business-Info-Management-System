@@ -256,3 +256,56 @@
 
         return true;
     }
+    function getCustomerOrders($conn, $userID): array {
+        $sql = "SELECT co.orderID, co.orderDateTime, co.totalAmount, co.paymentMethod, co.status, oi.itemID, mi.name AS itemName, oi.quantity, oi.priceAtPurchase FROM customer_orders co JOIN order_items oi ON co.orderID = oi.orderID JOIN menu_items mi ON oi.itemID = mi.itemID WHERE co.customerID = ? ORDER BY co.orderDateTime DESC";;
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $userID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        $orders = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $orderID = $row['orderID'];
+            if (!isset($orders[$orderID])) {
+                $orders[$orderID] = [
+                    'orderID' => $orderID,
+                    'orderDateTime' => $row['orderDateTime'],
+                    'totalAmount' => $row['totalAmount'],
+                    'paymentMethod' => $row['paymentMethod'],
+                    'status' => $row['status'],
+                    'items' => [],
+                ];
+            }
+
+            $orders[$orderID]['items'][] = [
+                'itemID' => $row['itemID'],
+                'itemName' => $row['itemName'],
+                'quantity' => $row['quantity'],
+                'priceAtPurchase' => $row['priceAtPurchase']
+            ];
+        }
+
+        mysqli_stmt_close($stmt);
+        return $orders;
+    }
+    function cancelOrder($conn, $orderID, $customerID) {
+        $sql = "UPDATE customer_orders SET status = 'Cancelled' WHERE orderID = ? AND customerID = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die ("SQL error: " . mysqli_error($conn));
+        }
+
+        mysqli_stmt_bind_param($stmt, "ii", $orderID, $customerID);
+        if (mysqli_stmt_execute($stmt)) {
+            return true;
+        } else {
+            return false;
+        }
+    }

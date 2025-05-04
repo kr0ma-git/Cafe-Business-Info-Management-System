@@ -40,7 +40,7 @@
                         } else if ($_SESSION["userRole"] == "employee") {
                             echo "<li><a href='../employee/employee.php'>Employee Dashboard</a></li>";
                         } else {
-                            echo "<li><a href='../customer/profile.php'>Customer Dashboard</a></li>";
+                            echo "<li><a href='../customer/customerDashboard.php'>Customer Dashboard</a></li>";
                         }
                         echo "<li><a href='../includes/logout.inc.php'>Log Out</a></li>";
                     } else {

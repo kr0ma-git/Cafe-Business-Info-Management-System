@@ -41,7 +41,7 @@
         <form action="../includes/checkout.inc.php" method="POST" class="form">
             <div class="input-group">
                 <select name="paymentMethod" required style="padding: 14px; border-radius: 8px; width: 100%; border: none; background: rgba(255, 255, 255, 1); color: var(--txt-color);">
-                    <option value="Cash on Deliver">Cash on Delivery</option>
+                    <option value="Cash">Cash</option>
                     <option value="Gcash">Gcash</option>
                     <option value="Credit Card">Credit Card</option>
                 </select>
