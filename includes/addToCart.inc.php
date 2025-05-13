@@ -6,28 +6,18 @@
         exit();
     }
 
-    if (isset($_POST['addToCart'])) {
+    if (isset($_POST["addToCart"])) {
         include "../includes/dbh.inc.php";
+        include "../includes/functions.inc.php";
 
-        $itemID = $_POST['itemID'];
-        $itemName = $_POST['itemName'];
-        $itemPrice = $_POST['itemPrice'];
-        $itemQty = $_POST['itemQuantity'];
+        $itemID = $_POST["itemID"];
+        $itemName = $_POST["itemName"];
+        $itemPrice = $_POST["itemPrice"];
+        $itemQty = $_POST["itemQuantity"];
+        $customerID = $_SESSION["userID"];
 
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
-        
-        if (isset($_SESSION['cart'][$itemID])) {
-            $_SESSION['cart'][$itemID]['quantity'] += $itemQty;
-        } else {
-            $_SESSION['cart'][$itemID] = [
-                'name' => $itemName,
-                'price' => $itemPrice,
-                'quantity' => $itemQty
-            ];
-        }
+        addOrUpdateCartItem($conn, $customerID, $itemID, $itemQty);
 
-        header("Location: ../catalog/catalog.php");
+        header("Location: ../catalog/catalog.php?cart=success");
         exit();
     }

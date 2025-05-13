@@ -64,7 +64,6 @@ header nav, .logo {
     margin-right: auto;
 }
 
-
 header nav {
     margin-left: auto;
 }
@@ -90,7 +89,6 @@ header nav a {
 
 header nav a:hover {
     color: var(--btn-color);
-    text-decoration: underline;
 }
 
 @media screen and (max-width: 1200px) {

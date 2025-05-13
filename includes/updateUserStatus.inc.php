@@ -21,9 +21,9 @@
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
-        header("Location: ../admin/admin.php");
+        header("Location: ../admin/adminUserManagement.php");
         exit();
     } else {
-        header("Location: ../admin/admin.php");
+        header("Location: ../admin/adminUserManagement.php");
         exit();
     }

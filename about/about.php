@@ -8,10 +8,13 @@
             <i class="fa-solid fa-xmark" id="admin-close-btn"></i>
             <h3>Admin Navigation</h3>
             <ul>
-                <li><a href="#">User Management</a></li>
-                <li><a href="#">Manage Catalog</a></li>
-                <li><a href="#">View Orders</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="../index.php">Home Page</a></li>
+                <li><a href="../catalog/catalog.php">Catalog Page</a></li>
+                <li><a href="../cart/cart.php">Cart Page</a></li>
+                <li><a href="../customer/customer.php">Customer Dashboard</a></li>
+                <li><a href="../employee/employee.php">Employee Dashboard</a></li>
+                <li><a href="../admin/adminLanding.php">Admin Dashboard</a></li>
+                <li><a href="about.php">About Us</a></li>
             </ul>
         </aside>
     <?php endif; ?>
@@ -31,3 +34,5 @@
             </div>
         </div>
     </section>
+
+    <script src="../index.js"></script>
