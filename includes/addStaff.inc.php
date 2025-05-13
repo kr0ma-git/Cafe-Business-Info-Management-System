@@ -1,6 +1,6 @@
 <?php
-    require_once '../includes/dbh.inc.php';
-    require_once '../includes/functions.inc.php';
+    require_once 'dbh.inc.php';
+    require_once 'functions.inc.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $firstName = trim($_POST['firstName'] ?? '');

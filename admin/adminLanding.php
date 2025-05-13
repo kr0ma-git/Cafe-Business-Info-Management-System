@@ -1,4 +1,4 @@
-<a?php
+<?php
     session_start();
 
     if (!isset($_SESSION['userRole']) || $_SESSION["userRole"] !== "admin") {
@@ -37,11 +37,13 @@
                     </div>
                 </a>
 
-                <div class="summary-card">
-                    <i class="fa-solid fa-utensils summary-icon"></i>
-                    <h3 class="summary-title">Manage Menu Items</h3>
-                    <p class="summary-description">Modify existing menu items, add new delicious offerings, or remove items as needed</p>
-                </div>
+                <a href="adminManageMenu.php">
+                    <div class="summary-card">
+                        <i class="fa-solid fa-utensils summary-icon"></i>
+                        <h3 class="summary-title">Manage Menu Items</h3>
+                        <p class="summary-description">Modify existing menu items, add new delicious offerings, or remove items as needed</p>
+                    </div>
+                </a>
 
                 <a href="adminManageOrders.php">
                     <div class="summary-card">

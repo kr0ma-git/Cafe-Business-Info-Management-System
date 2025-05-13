@@ -434,9 +434,52 @@
         $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
         $status = 'active';
 
-        mysqli_stmt_bind_param($stmt, "ssssssiss", $firstName, $lastName, $email, $role, $password, $contactNumber, $salary, $department, $status);
+        mysqli_stmt_bind_param($stmt, "ssssssiss", $firstName, $lastName, $email, $role, $hashedPwd, $contactNumber, $salary, $department, $status);
         $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
         return $result;
+    }
+    function adminAddMenuItem($conn, $name, $description, $price, $stock, $imagePath) {
+        $sql = "INSERT INTO menu_items (name, description, price, stock, image) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: ../admin/adminManageMenu.php?error=stmtFailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "ssdis", $name, $description, $price, $stock, $imagePath);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        header("Location: ../admin/adminManageMenu.php?success=itemAdded");
+        exit();
+    }
+    function menuItemExists($conn, $itemID) {
+        $sql = "SELECT * FROM menu_items WHERE itemID = ?";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: ../includes/adminManageMenu.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $itemID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        return mysqli_fetch_assoc($result) ? true : false;
+    }
+    function deleteMenuItem($conn, $itemID) {
+        $sql = "DELTE FROM menu_item WHERE itemID = ?;";
+        $stmt = mysqli_stmt_init($conn);
+
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: ../includes/adminManageMenu.php?error=stmtfailed");
+            exit();
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $itemID);
+        return mysqli_stmt_execute($stmt);
     }

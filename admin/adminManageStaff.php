@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Temporary Password:</label>
+                    <label for="password">Password:</label>
                     <input type="password" name="password" required>
                 </div>
 

@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include "../includes/dbh.inc.php";
-    include "../includes/functions.inc.php";
+    include "dbh.inc.php";
+    include "functions.inc.php";
 
     $customerID = $_SESSION["userID"];
 
