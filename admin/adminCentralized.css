@@ -513,7 +513,7 @@ body {
 
     .admin-sidebar nav ul {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 10px;
     }
 
@@ -548,5 +548,14 @@ body {
 
     .form-group-inline {
         flex-direction: column;
+    }
+
+    .staff-table {
+        overflow-x:auto;
+    }
+
+    .staff-table table {
+        width: auto;
+        min-width: 100%;
     }
 }
